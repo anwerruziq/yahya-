@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #05060f;
+    color: white;
+    overflow-x: hidden;
+    direction: rtl;
+  }
+
+  /* Arabic text support */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .glow-border {
+    box-shadow: 0 0 20px rgba(216, 236, 248, 0.3);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(216, 236, 248, 0.5);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8ECF8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8d8e8;
+}
+
+/* RTL specific adjustments */
+.space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Arabic text rendering improvements */
+@supports (font-feature-settings: "liga") {
+  body {
+    font-feature-settings: "liga", "kern";
+  }
+}
