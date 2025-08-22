@@ -17,26 +17,8 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Create mailto link with form data
-    const subject = encodeURIComponent('رسالة جديدة من موقعك الشخصي')
-    const body = encodeURIComponent(`
-الاسم: ${formData.name}
-البريد الإلكتروني: ${formData.email}
-
-الرسالة:
-${formData.message}
-    `)
-    
-    // Open default email client
-    window.open(`mailto:anwerrziq5@gmail.com?subject=${subject}&body=${body}`, '_blank')
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      message: ''
-    })
+    // Handle form submission
+    console.log('Form submitted:', formData)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -147,15 +129,11 @@ ${formData.message}
               <h4 className="text-xl font-semibold text-accent-blue mb-6">معلومات التواصل</h4>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-gray-300">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-accent-blue/20 to-purple-500/20 flex items-center justify-center">
-                    <i className="fas fa-envelope text-accent-blue text-lg"></i>
-                  </div>
+                  <i className="ph-envelope text-accent-blue text-xl"></i>
                   <span>yahyeroziq@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-accent-blue/20 to-purple-500/20 flex items-center justify-center">
-                    <i className="fas fa-phone text-accent-blue text-lg"></i>
-                  </div>
+                  <i className="ph-phone text-accent-blue text-xl"></i>
                   <span>+967 776080001</span>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">

@@ -255,11 +255,11 @@ const Projects = () => {
         </div>
       </motion.div>
 
-      <ProjectSection title="صور ثلاثية الأبعاد" items={projects3D} />
-      <ProjectSection title="صور ثنائية الأبعاد" items={projects2D} />
-      <ProjectSection title="صور الذكاء الاصطناعي" items={projectsAI} />
-      <ProjectSection title="فيديوهات ثلاثية الأبعاد" items={videos3D} isVideo={true} />
-      <ProjectSection title="فيديوهات الذكاء الاصطناعي" items={videosAI} isVideo={true} />
+      <ProjectSection title=" صور 3D " items={projects3D} />
+      <ProjectSection title="صور 2D " items={projects2D} />
+      <ProjectSection title="صور AI " items={projectsAI} />
+      <ProjectSection title=" فيديوهات 3D " items={videos3D} isVideo={true} />
+      <ProjectSection title="فيديوهات AI " items={videosAI} isVideo={true} />
     </div>
   )
 }
