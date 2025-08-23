@@ -9,7 +9,21 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          animations: ['framer-motion'],
+          icons: ['lucide-react']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'framer-motion', 'lucide-react']
   }
 })
 

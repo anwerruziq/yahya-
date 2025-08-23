@@ -11,7 +11,7 @@ const Contact = () => {
   const socialLinks = [
     { name: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://www.facebook.com/yahye.raziq?mibextid=ZbWKwL', color: 'hover:text-blue-500' },
     { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/yahya_razaiq?igsh=cHdxanBpZTB6aWNo', color: 'hover:text-pink-500' },
-    { name: 'WhatsApp', icon: 'fab fa-whatsapp', url: 'https://wa.me/967778568777', color: 'hover:text-green-500' },
+    { name: 'WhatsApp', icon: 'fab fa-whatsapp', url: 'https://wa.me/967776080001', color: 'hover:text-green-500' },
     { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://www.linkedin.com/in/yahya-ruziaq-173032366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', color: 'hover:text-blue-600' }
   ]
 
