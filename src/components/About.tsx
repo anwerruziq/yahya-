@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 
 const About = () => {
   const skills = [
-    { name: 'Photoshop', image: '/logos/Photoshop-logo-Adobe-symbol-digital-creativity-transparent-png-image-jpg.png' },
-    { name: 'Illustrator', image: '/logos/Adobe-Illustrator-2024-Logo-PNG-Transparent-Creative-and-Distinctive-Design-jpg-768x768.png' },
-    { name: 'After Effects', image: '/logos/adobe-after-effects-software-icon_539007-183.png' },
-    { name: 'Blender', image: '/logos/Blender-Logo-3D-Software.png' },
-    { name: 'Figma', image: '/logos/ekvife6ql3xc1.png' },
+    { name: 'Photoshop', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Photoshop-logo-Adobe-symbol-digital-creativity-transparent-png-image-jpg.png' },
+    { name: 'Illustrator', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Adobe-Illustrator-2024-Logo-PNG-Transparent-Creative-and-Distinctive-Design-jpg-768x768.png' },
+    { name: 'After Effects', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/adobe-after-effects-software-icon_539007-183.png' },
+    { name: 'Blender', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Blender-Logo-3D-Software.png' },
+    { name: 'Figma', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/ekvife6ql3xc1.png' },
   ]
 
   return (
@@ -47,7 +47,7 @@ const About = () => {
                   boxShadow: "0 0 40px rgba(216, 236, 248, 0.6)"
                 }}
                 transition={{ duration: 0.3 }}
-              ><img src="public\FitRoom.app_1749251509733.jpg.jpg" alt="" />
+              ><img src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/yahya.png" alt="" />
                 {/* Placeholder image - replace with actual image */}
                 <div className="w-full h-full bg-gradient-to-br from-accent-blue/20 to-purple-500/20 flex items-center justify-center">
                   <i className="ph-user text-8xl text-accent-blue/50"></i>

@@ -28,3 +28,5 @@ console.log('\n🔧 أوامر مفيدة:');
 console.log('npm install -g imagemin-cli');
 console.log('imagemin public/3d\\ img/* --out-dir=public/3d\\ img/optimized');
 console.log('imagemin public/2dimg/* --out-dir=public/2dimg/optimized');
+
+

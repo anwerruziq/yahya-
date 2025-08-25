@@ -64,13 +64,13 @@ const Header = () => {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 h-20 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled 
             ? 'glass-effect border-b border-glass-border shadow-lg' 
             : 'bg-transparent'
         }`}
       >
-      <nav className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="max-w-7xl mx-auto px-4 py-1">
         <div className="flex items-center justify-between">
           {/* Mobile Hamburger Button - Left */}
           <motion.button
@@ -107,7 +107,11 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-           YAHYE 
+          <img 
+            src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/logo1.png" 
+            alt="logo" 
+            className="w-20 h-20 md:w-24 md:h-24 object-contain"
+          />
           </motion.div>
         </div>
         
