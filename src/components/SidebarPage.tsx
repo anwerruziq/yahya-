@@ -171,47 +171,47 @@ const SidebarPage = () => {
      
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(10).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(10).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(11).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(11).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(12)%20(1).mp4"
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(12)%20(1).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(13).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(13).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(2).mp4"
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(2).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(3).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(3).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(4).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(4).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(5).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(5).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(7).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(7).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(8).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(8).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(9).mp4 "
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(9).mp4"
       }
      
     ],
@@ -347,65 +347,65 @@ const SidebarPage = () => {
       },
     ],
          "صور AI": [
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_storyboard4ee7e5162ea54eb5a1cc689d.png"
-      },
-      {
+       {
+         title: "صورة AI - مشروع 1",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_storyboard4ee7e5162ea54eb5a1cc689d.png"
+       },
+       {
+         title: "صورة AI - مشروع 2",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_exmdkzmwm3.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 3",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_bedb4f5e50.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 4",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_b2c13beff7.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 5",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_98a3dde07e.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 6",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e64a435d2.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 7",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e3fdc242d.jpg"
+       },
+       {
+         title: "صورة AI - مشروع 8",
+         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4178aef133.jpg"
+       },
+       {
         title: "صورة AI - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_exmdkzmwm3.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_3a6fcab51c.jpg"
       },
       {
         title: "صورة AI - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_bedb4f5e50.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_34b2a61c61.jpg"
       },
       {
         title: "صورة AI - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_b2c13beff7.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_253cf6753e.jpg"
       },
       {
         title: "صورة AI - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_98a3dde07e.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_113440dc8f.jpg"
       },
       {
         title: "صورة AI - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e64a435d2.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_09ed53c42f.jpg"
       },
       {
         title: "صورة AI - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e3fdc242d.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_04cf5eb107.jpg"
       },
       {
         title: "صورة AI - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4178aef133.jpg"
-      },
-      {
-       title: "صورة AI - مشروع 2",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_3a6fcab51c.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 3",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_34b2a61c61.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 4",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_253cf6753e.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 5",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_113440dc8f.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 6",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_09ed53c42f.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 7",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_04cf5eb107.jpg"
-     },
-     {
-       title: "صورة AI - مشروع 8",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
      }
      ,
      {
@@ -467,9 +467,9 @@ const SidebarPage = () => {
      {
        title: "صورة AI - مشروع 1",
        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(9).jpg"
-     } 
-      
-    ],
+      }
+       
+     ],
     "فيديوهات AI": [
       {
         title: "فيديو AI - مشروع كوبيكو 1",
