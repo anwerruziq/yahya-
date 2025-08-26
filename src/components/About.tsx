@@ -141,6 +141,17 @@ const About = () => {
           </motion.div>
         </div>
       </div>
+      
+      {/* Full-width background image with transparency */}
+      <div className="py-16">
+        <div className="absolute inset-x-0 w-full h-64 md:h-80">
+          <img 
+            src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/abute.jpg"
+            alt="خلفية تصميم"
+            className="w-full h-full object-cover opacity-40"
+          />
+        </div>
+      </div>
     </section>
   )
 }

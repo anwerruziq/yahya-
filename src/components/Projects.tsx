@@ -7,19 +7,19 @@ const Projects = () => {
   const projects3D = [
     {
       title: "تصميم 3D احترافي",
-      image: "#"
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-videos/imagd%20(1).jpg"
     },
     {
       title: "مشروع 3D متقدم",
-      image: "#"
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-videos/imagd%20(1).png"
     },
     {
       title: "تصميم ثلاثي الأبعاد",
-      image: "#"
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-videos/imagd%20(2).jpg"
     },
     {
       title: "مشروع 3D عالي الجودة",
-      image: "#"
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-videos/noar.png"
     }
   ]
 
@@ -160,10 +160,13 @@ const Projects = () => {
                                 muted
                                 loop
                                 playsInline
-                                preload="none"
+                                preload="metadata"
                                 autoPlay={false}
-                                poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 240'%3E%3Crect width='320' height='240' fill='%23374151'/%3E%3C/svg%3E`}
                                 onClick={() => setSelectedVideo(mediaUrl)}
+                                onLoadedMetadata={(e) => {
+                                  const video = e.currentTarget as HTMLVideoElement
+                                  try { video.currentTime = 0.05 } catch {}
+                                }}
                                 onMouseEnter={(e) => {
                                   const video = e.target as HTMLVideoElement
                                   video.currentTime = 0
@@ -216,10 +219,13 @@ const Projects = () => {
                                 muted
                                 loop
                                 playsInline
-                                preload="none"
+                                preload="metadata"
                                 autoPlay={false}
-                                poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 384'%3E%3Crect width='256' height='384' fill='%23374151'/%3E%3C/svg%3E`}
                                 onClick={() => setSelectedVideo(mediaUrl)}
+                                onLoadedMetadata={(e) => {
+                                  const video = e.currentTarget as HTMLVideoElement
+                                  try { video.currentTime = 0.05 } catch {}
+                                }}
                                 onMouseEnter={(e) => {
                                   const video = e.target as HTMLVideoElement
                                   video.currentTime = 0
@@ -271,9 +277,13 @@ const Projects = () => {
                             muted
                             loop
                             playsInline
-                            preload="none"
-                            poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 240'%3E%3Crect width='320' height='240' fill='%23374151'/%3E%3C/svg%3E`}
+                            preload="metadata"
+                            autoPlay={false}
                             onClick={() => setSelectedVideo(mediaUrl)}
+                            onLoadedMetadata={(e) => {
+                              const video = e.currentTarget as HTMLVideoElement
+                              try { video.currentTime = 0.05 } catch {}
+                            }}
                             onMouseEnter={(e) => {
                               const video = e.target as HTMLVideoElement
                               video.currentTime = 0
