@@ -170,48 +170,56 @@ const SidebarPage = () => {
     "فيديوهات 3D": [
      
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(10).mp4"
+        title: "فيديو 3D - مشروع 1",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(1).mp4"
       },
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(11).mp4"
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(2).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(12)%20(1).mp4"
+        title: "فيديو 3D - مشروع 3",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(3).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(13).mp4"
+        title: "فيديو 3D - مشروع 4",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(4).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(2).mp4"
+        title: "فيديو 3D - مشروع 5",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(5).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(3).mp4"
+        title: "فيديو 3D - مشروع 6",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(6).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(4).mp4"
+        title: "فيديو 3D - مشروع 7",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(7).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(5).mp4"
+        title: "فيديو 3D - مشروع 8",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(8).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(7).mp4"
+        title: "فيديو 3D - مشروع 9",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(9).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(8).mp4"
+        title: "فيديو 3D - مشروع 10",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(10).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(9).mp4"
+        title: "فيديو 3D - مشروع 11",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(11).mp4"
+      },
+      {
+        title: "فيديو 3D - مشروع 12",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(12).mp4"
+      },
+      {
+        title: "فيديو 3D - مشروع 13",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(13).mp4"
       }
      
     ],
