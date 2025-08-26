@@ -2,6 +2,25 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams } from 'react-router-dom'
 
+// Generate a low-res preview URL for Supabase-hosted images
+const getLowResImage = (url: string, quality: number = 35) => {
+  try {
+    const isSupabase = url.includes('/storage/v1/object/public/')
+    if (!isSupabase) return url
+    const transformed = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
+    const hasQuery = transformed.includes('?')
+    return transformed + (hasQuery ? `&quality=${quality}` : `?quality=${quality}`)
+  } catch {
+    return url
+  }
+}
+
+// Trim and normalize media URLs (handles accidental spaces)
+const normalizeMediaUrl = (url?: string) => {
+  if (!url) return ''
+  return url.trim()
+}
+
 const SidebarPage = () => {
   const [searchParams] = useSearchParams()
   const category = searchParams.get('category') || ''
@@ -10,123 +29,189 @@ const SidebarPage = () => {
     "صور 3D": [
       {
         title: "تصميم 3D احترافي - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0019%20copy%20-%20Copy.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0019%20copy%20-%20Copy.jpg "
       },
       {
-        title: "تصميم 3D متقدم - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0098%20copy%20-%20Copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0098%20copy%20-%20Copy.jpg "
       },
       {
-        title: "تصميم ثلاثي الأبعاد - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0199%20copy%20-%20Copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0199%20copy%20-%20Copy.jpg"
       },
       {
-        title: "مشروع 3D عالي الجودة - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0199%20copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0210%20copy.jpg "
       },
       {
-        title: "تصميم 3D إبداعي - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0199%20copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0422%20copy.jpg "
       },
       {
-        title: "مشروع 3D متطور - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0422%20copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/45TGGGJJ%20-%20Copy.png "
+      },
+     
+      {
+        
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/g3.png"
       },
       {
-        title: "تصميم 3D احترافي - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0422%20copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/g5.png "
       },
       {
-        title: "مشروع 3D متقدم - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/0422%20copy.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/ghy1.png "
       },
       {
-        title: "تصميم 3D إبداعي - مشروع 9",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/g5.png"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/HGU88.png "
       },
       {
-        title: "مشروع 3D متطور - مشروع 10",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/ghy1.png"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/nenen2.jpg "
       },
       {
-        title: "تصميم 3D احترافي - مشروع 11",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/HGU88.png"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/ucdgyyntitled.png "
       },
       {
-        title: "مشروع 3D متقدم - مشروع 12",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/enen.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitl4RTed.png"
       },
       {
-        title: "تصميم 3D إبداعي - مشرع 13",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/nenen2.jpg"
+        title: "تصميم 3D احترافي - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitle54465d.png "
       },
       {
-        title: "مشروع 3D متطور - مشروع 14",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/un33titled2.png"
-      },
-      {
-        title: "تصميم 3D احترافي - مشروع 15",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitl4RTed.png"
-      },
-      {
-        title: "مشروع 3D متقدم - مشروع 16",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitle54465d.png"
-      },
-      {
-        title: "تصميم 3D إبداعي - مشروع 17",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled.png"
-      },
-      {
-        title: "مشروع 3D متطور - مشروع 18",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled21.png"
-      },
-      {
-        title: "تصميم 3D احترافي - مشروع 19",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled9.png"
-      },
-      {
-        title: "مشروع 3D متقدم - مشروع 20",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/ucdgyyntitled.png"
-      }
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled.png "
+    },
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled21.png "
+    },
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-img/img/untitled9.png"
+    }
+    ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(1).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(1).png "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(2).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(2).png"
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(3).jpg"
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(3).png "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(4).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(4).png"
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(5).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(5).png "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(6).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(6).png "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(7).jpg "
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(7).png"
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(8).png"
+    } ,
+    {
+      title: "تصميم 3D احترافي - مشروع 1",
+      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/imge%20(9).png "
+    }
+   
+     
+     
+     
     ],
     "فيديوهات 3D": [
      
       {
         title: "فيديو 3D - مشروع 2",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(10).mp4"
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(10).mp4 "
       },
       {
-        title: "فيديو 3D - معطر 3",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(13).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(11).mp4 "
       },
       {
-        title: "فيديو 3D - 4 خلفية",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(11).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(12)%20(1).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 5",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(12)%20(1).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(13).mp4 "
       },
       {
-        title: "فيديو 3D - تصميم 6",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(2).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: " https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(2).mp4"
       },
       {
-        title: "فيديو 3D - مشروع 7 الجودة",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(3).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(3).mp4 "
       },
       {
-        title: "فيديو 3D - 8 متطور",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(4).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(4).mp4 "
       },
       {
-        title: "فيديو 3D - مشروع 9",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(5).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(5).mp4 "
       },
-     
       {
-        title: "فيديو 3D - الكهف 10 ",
-        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(9).mp4"
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid/vid3d%20(7).mp4 "
+      },
+      {
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(8).mp4 "
+      },
+      {
+        title: "فيديو 3D - مشروع 2",
+        video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid/vid3d%20(9).mp4 "
       }
      
     ],
@@ -262,129 +347,129 @@ const SidebarPage = () => {
       },
     ],
          "صور AI": [
-       {
-         title: "صورة AI - مشروع 1",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_storyboard4ee7e5162ea54eb5a1cc689d.png"
-       },
-       {
-         title: "صورة AI - مشروع 2",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_exmdkzmwm3.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 3",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_bedb4f5e50.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 4",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_b2c13beff7.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 5",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_98a3dde07e.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 6",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e64a435d2.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 7",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e3fdc242d.jpg"
-       },
-       {
-         title: "صورة AI - مشروع 8",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4178aef133.jpg"
-       },
-       {
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_storyboard4ee7e5162ea54eb5a1cc689d.png"
+      },
+      {
         title: "صورة AI - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_3a6fcab51c.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_exmdkzmwm3.jpg"
       },
       {
         title: "صورة AI - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_34b2a61c61.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_bedb4f5e50.jpg"
       },
       {
         title: "صورة AI - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_253cf6753e.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_b2c13beff7.jpg"
       },
       {
         title: "صورة AI - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_113440dc8f.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_98a3dde07e.jpg"
       },
       {
         title: "صورة AI - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_09ed53c42f.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e64a435d2.jpg"
       },
       {
         title: "صورة AI - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_04cf5eb107.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e3fdc242d.jpg"
       },
       {
         title: "صورة AI - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
-      }
-      ,
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4178aef133.jpg"
+      },
       {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).webp"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(10).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(12).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(13).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(14).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(16).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(19).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(2)%20(1).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(23).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(24).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(25).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(3).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(8).jpg"
-      } ,
-      {
-        title: "صورة AI - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(9).jpg"
-      } 
-       
-     ],
+       title: "صورة AI - مشروع 2",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_3a6fcab51c.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 3",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_34b2a61c61.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 4",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_253cf6753e.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 5",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_113440dc8f.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 6",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_09ed53c42f.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 7",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_04cf5eb107.jpg"
+     },
+     {
+       title: "صورة AI - مشروع 8",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
+     }
+     ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).webp"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(10).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(12).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(13).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(14).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(16).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(19).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(2)%20(1).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(23).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(24).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(25).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(3).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(8).jpg"
+     } ,
+     {
+       title: "صورة AI - مشروع 1",
+       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(9).jpg"
+     } 
+      
+    ],
     "فيديوهات AI": [
       {
         title: "فيديو AI - مشروع كوبيكو 1",
@@ -462,7 +547,7 @@ const SidebarPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               className="group cursor-pointer"
-              onClick={() => setSelectedMedia(project.video || project.image)}
+              onClick={() => setSelectedMedia(normalizeMediaUrl(project.video || project.image))}
             >
               <div className="relative overflow-hidden rounded-xl bg-gray-800">
                 {project.video ? (
@@ -485,22 +570,17 @@ const SidebarPage = () => {
                       video.currentTime = 0
                     }}
                   >
-                    <source src={project.video} type="video/mp4" />
+                    <source src={normalizeMediaUrl(project.video)} type="video/mp4" />
                   </video>
                 ) : (
                   <img
-                    src={project.image}
-                    alt={project.title}
+                    src={getLowResImage(normalizeMediaUrl(project.image))}
+                    alt=""
                     loading="lazy"
                     className="w-full h-60 md:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-white font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {project.title}
-                  </h3>
-                </div>
+                <div className="absolute inset-0 pointer-events-none" />
               </div>
                          </motion.div>
            ))}
@@ -526,16 +606,16 @@ const SidebarPage = () => {
           >
             {selectedMedia.endsWith('.mp4') ? (
               <video
-                src={selectedMedia}
+                src={normalizeMediaUrl(selectedMedia)}
                 controls
                 autoPlay
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
               >
-                <source src={selectedMedia} type="video/mp4" />
+                <source src={normalizeMediaUrl(selectedMedia)} type="video/mp4" />
               </video>
             ) : (
               <img
-                src={selectedMedia}
+                src={normalizeMediaUrl(selectedMedia)}
                 alt="صورة مكبرة"
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
               />

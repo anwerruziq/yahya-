@@ -67,6 +67,19 @@ const ThumbVideo: React.FC<ThumbVideoProps> = ({ src, className, onClick }) => {
   )
 }
 
+// Generate a low-res preview URL for Supabase-hosted images
+const getLowResImage = (url: string, quality: number = 35) => {
+  try {
+    const isSupabase = url.includes('/storage/v1/object/public/')
+    if (!isSupabase) return url
+    const transformed = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
+    const hasQuery = transformed.includes('?')
+    return transformed + (hasQuery ? `&quality=${quality}` : `?quality=${quality}`)
+  } catch {
+    return url
+  }
+}
+
 const Projects = () => {
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null)
   const [selectedVideo, setSelectedVideo] = React.useState<string | null>(null)
@@ -230,7 +243,7 @@ const Projects = () => {
                           }
                           return (
                             <img
-                              src={mediaUrl}
+                              src={getLowResImage(mediaUrl)}
                               alt={item.title}
                               loading="lazy"
                               className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
@@ -269,7 +282,7 @@ const Projects = () => {
                           }
                           return (
                             <img
-                              src={mediaUrl}
+                              src={getLowResImage(mediaUrl)}
                               alt={item.title}
                               loading="lazy"
                               className="w-48 h-80 md:w-64 md:h-[360px] object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
@@ -307,7 +320,7 @@ const Projects = () => {
                       }
                       return (
                         <img
-                          src={mediaUrl}
+                          src={getLowResImage(mediaUrl)}
                           alt={item.title}
                           loading="lazy"
                           className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"

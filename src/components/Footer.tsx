@@ -8,7 +8,7 @@ const Footer = () => {
     { name: 'الرئيسية', href: '#home' },
     { name: 'عني', href: '#about' },
     { name: 'أعمالي', href: '#projects' },
-    { name: 'المعرض', href: '#gallery' },
+   
     { name: 'تواصل', href: '#contact' }
   ]
 
