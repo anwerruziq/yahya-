@@ -558,9 +558,24 @@ const SidebarPage = () => {
                     playsInline
                     preload="metadata"
                     autoPlay={false}
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23374151'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial' font-size='16'%3Eتحميل الفيديو...%3C/text%3E%3C/svg%3E"
                     onLoadedMetadata={(e) => {
                       const video = e.currentTarget as HTMLVideoElement
-                      try { video.currentTime = 0.05 } catch {}
+                      try { 
+                        video.currentTime = 0.05 
+                        console.log('Video loaded, seeking to 0.05s:', project.video)
+                      } catch (error) {
+                        console.error('Error seeking video:', error)
+                      }
+                    }}
+                    onCanPlay={(e) => {
+                      const video = e.currentTarget as HTMLVideoElement
+                      try { 
+                        video.currentTime = 0.05 
+                        console.log('Video can play, seeking to 0.05s:', project.video)
+                      } catch (error) {
+                        console.error('Error seeking video on canplay:', error)
+                      }
                     }}
                     onMouseEnter={(e) => {
                       const video = e.target as HTMLVideoElement
@@ -572,8 +587,14 @@ const SidebarPage = () => {
                       video.pause()
                       video.currentTime = 0
                     }}
+                    onError={(e) => {
+                      console.error('Video error:', e, 'for video:', project.video)
+                    }}
                   >
                     <source src={normalizeMediaUrl(project.video)} type="video/mp4" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
+                      <span>فيديو غير متاح</span>
+                    </div>
                   </video>
                 ) : (
                   <img
