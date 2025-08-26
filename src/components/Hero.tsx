@@ -17,7 +17,8 @@ const Hero = () => {
         <iframe 
           src='https://my.spline.design/blackabstractart-8qrAEUIticOzwS9JbOdzJpuA/' 
           frameBorder='0' 
-          width='100%' 
+          className="block w-full h-full max-w-full"
+          width='100%'
           height='100%'
           title="3D Interactive Model"
         />

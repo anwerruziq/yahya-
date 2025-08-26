@@ -70,7 +70,7 @@ const Header = () => {
             : 'bg-transparent'
         }`}
       >
-      <nav className="max-w-7xl mx-auto px-4 py-1">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-4 py-1">
         <div className="flex items-center justify-between">
           {/* Mobile Hamburger Button - Left */}
           <motion.button

@@ -29,7 +29,7 @@ const Contact = () => {
   }
 
   return (
-    <section className="py-20 px-6 relative">
+    <section className="py-20 px-3 sm:px-4 md:px-6 relative">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -66,7 +66,7 @@ const Contact = () => {
             {/* Social Icons */}
             <div className="space-y-4">
               <h4 className="text-xl font-semibold text-accent-blue mb-6">تابعني</h4>
-              <div className="relative w-full h-96">
+              <div className="relative w-full h-96 overflow-hidden">
                 {socialLinks.map((social, index) => {
                   const positions = [
                     { x: 60, y: 80 },

@@ -1,6 +1,72 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+// Lazy-load video when it enters the viewport to improve performance, especially on mobile
+const useInView = (options?: IntersectionObserverInit) => {
+  const ref = React.useRef<HTMLDivElement | null>(null)
+  const [inView, setInView] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!ref.current) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true)
+        observer.disconnect()
+      }
+    }, options)
+    observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [options])
+
+  return { ref, inView }
+}
+
+type ThumbVideoProps = {
+  src: string
+  className?: string
+  onClick?: () => void
+}
+
+const ThumbVideo: React.FC<ThumbVideoProps> = ({ src, className, onClick }) => {
+  const { ref, inView } = useInView({ rootMargin: '200px' })
+  const videoRef = React.useRef<HTMLVideoElement | null>(null)
+
+  return (
+    <div ref={ref} className={className} style={{ position: 'relative' }}>
+      {inView ? (
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          autoPlay={false}
+          onClick={onClick}
+          onLoadedMetadata={(e) => {
+            const video = e.currentTarget as HTMLVideoElement
+            try { video.currentTime = 0.05 } catch {}
+          }}
+          onMouseEnter={(e) => {
+            const video = e.currentTarget as HTMLVideoElement
+            video.currentTime = 0
+            video.play()
+          }}
+          onMouseLeave={(e) => {
+            const video = e.currentTarget as HTMLVideoElement
+            video.pause()
+            video.currentTime = 0
+          }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ) : (
+        <div className="w-full h-full bg-gray-800/70" onClick={onClick} />
+      )}
+    </div>
+  )
+}
+
 const Projects = () => {
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null)
   const [selectedVideo, setSelectedVideo] = React.useState<string | null>(null)
@@ -115,12 +181,12 @@ const Projects = () => {
     },
     {
       title: "تصميم مياه صنعاء",
-      video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/main-ai/main-ai-vid/fa;con.mp4"
+      video: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid-live/vid-3d%20(1).mp4"
     }
   ]
 
   const ProjectSection = ({ title, items, isVideo = false }) => (
-    <section className="py-16 px-6">
+    <section className="py-16 px-3 sm:px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-12"
@@ -155,31 +221,11 @@ const Projects = () => {
                           const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
                           if (looksLikeVideo) {
                             return (
-                              <video
-                                className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                                muted
-                                loop
-                                playsInline
-                                preload="metadata"
-                                autoPlay={false}
+                              <ThumbVideo
+                                src={mediaUrl}
+                                className="w-64 h-48 md:w-80 md:h-60"
                                 onClick={() => setSelectedVideo(mediaUrl)}
-                                onLoadedMetadata={(e) => {
-                                  const video = e.currentTarget as HTMLVideoElement
-                                  try { video.currentTime = 0.05 } catch {}
-                                }}
-                                onMouseEnter={(e) => {
-                                  const video = e.target as HTMLVideoElement
-                                  video.currentTime = 0
-                                  video.play()
-                                }}
-                                onMouseLeave={(e) => {
-                                  const video = e.target as HTMLVideoElement
-                                  video.pause()
-                                  video.currentTime = 0
-                                }}
-                              >
-                                <source src={mediaUrl} type="video/mp4" />
-                              </video>
+                              />
                             )
                           }
                           return (
@@ -214,31 +260,11 @@ const Projects = () => {
                           const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
                           if (looksLikeVideo) {
                             return (
-                              <video
-                                className="w-48 h-80 md:w-64 md:h-[360px] object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                                muted
-                                loop
-                                playsInline
-                                preload="metadata"
-                                autoPlay={false}
+                              <ThumbVideo
+                                src={mediaUrl}
+                                className="w-48 h-80 md:w-64 md:h-[360px]"
                                 onClick={() => setSelectedVideo(mediaUrl)}
-                                onLoadedMetadata={(e) => {
-                                  const video = e.currentTarget as HTMLVideoElement
-                                  try { video.currentTime = 0.05 } catch {}
-                                }}
-                                onMouseEnter={(e) => {
-                                  const video = e.target as HTMLVideoElement
-                                  video.currentTime = 0
-                                  video.play()
-                                }}
-                                onMouseLeave={(e) => {
-                                  const video = e.target as HTMLVideoElement
-                                  video.pause()
-                                  video.currentTime = 0
-                                }}
-                              >
-                                <source src={mediaUrl} type="video/mp4" />
-                              </video>
+                              />
                             )
                           }
                           return (
@@ -272,31 +298,11 @@ const Projects = () => {
                       const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
                       if (looksLikeVideo) {
                         return (
-                          <video
-                            className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                            muted
-                            loop
-                            playsInline
-                            preload="metadata"
-                            autoPlay={false}
+                          <ThumbVideo
+                            src={mediaUrl}
+                            className="w-64 h-48 md:w-80 md:h-60"
                             onClick={() => setSelectedVideo(mediaUrl)}
-                            onLoadedMetadata={(e) => {
-                              const video = e.currentTarget as HTMLVideoElement
-                              try { video.currentTime = 0.05 } catch {}
-                            }}
-                            onMouseEnter={(e) => {
-                              const video = e.target as HTMLVideoElement
-                              video.currentTime = 0
-                              video.play()
-                            }}
-                            onMouseLeave={(e) => {
-                              const video = e.target as HTMLVideoElement
-                              video.pause()
-                              video.currentTime = 0
-                            }}
-                          >
-                            <source src={mediaUrl} type="video/mp4" />
-                          </video>
+                          />
                         )
                       }
                       return (

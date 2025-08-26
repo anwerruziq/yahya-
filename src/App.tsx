@@ -11,7 +11,7 @@ import SidebarPage from './components/SidebarPage'
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-dark-bg">
+    <div className="min-h-screen bg-dark-bg overflow-x-hidden">
       {/* Light spots for depth and digital identity */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-2 h-2 bg-white rounded-full opacity-30 animate-pulse"></div>

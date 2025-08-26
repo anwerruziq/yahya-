@@ -133,60 +133,133 @@ const SidebarPage = () => {
     "صور 2D": [
       {
         title: "تصميم 2D - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/2021_Januari_71.jpg1.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/u7.jpg"
       },
       {
         title: "تصميم 2D - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/U2%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/IMG-20230328-WA0001.jpg"
+      }, {
         title: "تصميم 2D - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/u3%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(9).jpg"
+      }, {
         title: "تصميم 2D - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/winges.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(8).jpg"
+      }, {
         title: "تصميم 2D - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/2021_Januari_71.jpg1.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(7).jpg"
+      }, {
         title: "تصميم 2D - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/U2%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(6).jpg"
+      }, {
         title: "تصميم 2D - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/u3%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(5).jpg"
+      }, {
         title: "تصميم 2D - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/winges.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(4).jpg"
+      }, {
         title: "تصميم 2D - مشروع 9",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/U2%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(3).jpg"
+      }, {
         title: "تصميم 2D - مشروع 10",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/u3%20copy.jpg"
-      },
-      {
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(2).jpg"
+      }, {
         title: "تصميم 2D - مشروع 11",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/winges.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(17).jpg"
       },
       {
         title: "تصميم 2D - مشروع 12",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/U2%20copy.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(16).jpg"
       },
       {
         title: "تصميم 2D - مشروع 13",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/u3%20copy.jpg"
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(15).jpg"
       },
       {
         title: "تصميم 2D - مشروع 14",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/main-2d-img/winges.jpg"
-      }
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(14).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 15",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(13).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 16",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(12).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 17",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(11).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 18",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(10).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 19",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(1).jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 20",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/hqpn.jpg"
+      },
+      {
+        title: "تصميم 2D - 2مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/fdt.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 22",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/ett.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 23",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/ddg.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 24",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci9.jpg"
+      },
+      
+      {
+        title: "تصميم 2D - مشروع 25",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci8.jpg"
+      },
+       {
+        title: "تصميم 2D - مشروع 26",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci6.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 26",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci5.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 27",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci4.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 28",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci1.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 29",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danc10.jpg"
+      },
+      
+      {
+        title: "تصميم 2D - مشروع 30",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/cocc.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 31",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/342.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع32",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/2ngm%20copy.jpg"
+      },
+      {
+        title: "تصميم 2D - مشروع 33",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/2.jpg"
+      },
     ],
          "صور AI": [
        {
@@ -249,6 +322,67 @@ const SidebarPage = () => {
         title: "صورة AI - مشروع 8",
         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
       }
+      ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).webp"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(10).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(12).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(13).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(14).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(16).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(19).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(2)%20(1).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(23).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(24).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(25).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(3).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(8).jpg"
+      } ,
+      {
+        title: "صورة AI - مشروع 1",
+        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(9).jpg"
+      } 
        
      ],
     "فيديوهات AI": [
