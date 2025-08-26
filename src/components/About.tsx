@@ -144,11 +144,11 @@ const About = () => {
       
       {/* Full-width background image with transparency */}
       <div className="py-16">
-        <div className="absolute inset-x-0 w-full h-64 md:h-80">
+        <div className="absolute left-1/2 -translate-x-1/2 w-screen h-64 md:h-80">
           <img 
-            src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/abute.jpg"
+            src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/3d-vid-live/b-g.png"
             alt="خلفية تصميم"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-contain object-center opacity-40 pointer-events-none select-none"
           />
         </div>
       </div>
