@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 
 const About = () => {
   const skills = [
-    { name: 'Photoshop', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Photoshop-logo-Adobe-symbol-digital-creativity-transparent-png-image-jpg.png' },
-    { name: 'Illustrator', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Adobe-Illustrator-2024-Logo-PNG-Transparent-Creative-and-Distinctive-Design-jpg-768x768.png' },
-    { name: 'After Effects', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/adobe-after-effects-software-icon_539007-183.png' },
-    { name: 'Blender', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/Blender-Logo-3D-Software.png' },
-    { name: 'Figma', image: 'https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/ekvife6ql3xc1.png' },
+    { name: 'Photoshop', image: '/عني/skill (1).png' },
+    { name: 'Illustrator', image: '/عني/skill (2).png' },
+    { name: 'After Effects', image: '/عني/skill.png' },
+    { name: 'Blender', image: '/عني/skill (4).png' },
+    { name: 'Figma', image: '/عني/skill (5).png' },
   ]
 
   return (
@@ -47,7 +47,7 @@ const About = () => {
                   boxShadow: "0 0 40px rgba(216, 236, 248, 0.6)"
                 }}
                 transition={{ duration: 0.3 }}
-              ><img src="https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/yahey/logos/yahya.png" alt="" />
+              ><img src="/عني/me.jpg" alt="" />
                 {/* Placeholder image - replace with actual image */}
                 <div className="w-full h-full bg-gradient-to-br from-accent-blue/20 to-purple-500/20 flex items-center justify-center">
                   <i className="ph-user text-8xl text-accent-blue/50"></i>
@@ -129,7 +129,7 @@ const About = () => {
                           <img
                             src={skill.image}
                             alt={skill.name}
-                            className="w-16 h-16 md:w-24 md:h-24 object-contain mix-blend-multiply drop-shadow-lg"
+                            className="w-12 h-12 md:w-20 md:h-20 object-contain mix-blend-multiply drop-shadow-lg"
                           />
                         </motion.div>
                       );

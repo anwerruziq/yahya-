@@ -45,7 +45,7 @@ const ThumbVideo: React.FC<ThumbVideoProps> = ({ src, className, onClick }) => {
           onClick={onClick}
           onLoadedMetadata={(e) => {
             const video = e.currentTarget as HTMLVideoElement
-            try { video.currentTime = 0.05 } catch {}
+            try { video.currentTime = 0.05 } catch { }
           }}
           onMouseEnter={(e) => {
             const video = e.currentTarget as HTMLVideoElement
@@ -70,14 +70,21 @@ const ThumbVideo: React.FC<ThumbVideoProps> = ({ src, className, onClick }) => {
 // Generate a low-res preview URL for Supabase-hosted images
 const getLowResImage = (url: string, quality: number = 35) => {
   try {
-    const isSupabase = url.includes('/storage/v1/object/public/')
-    if (!isSupabase) return url
-    const transformed = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
+    const trimmed = (url || '').trim()
+    const encoded = encodeURI(trimmed)
+    const isSupabase = encoded.includes('/storage/v1/object/public/')
+    if (!isSupabase) return encoded
+    const transformed = encoded.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
     const hasQuery = transformed.includes('?')
     return transformed + (hasQuery ? `&quality=${quality}` : `?quality=${quality}`)
   } catch {
     return url
   }
+}
+
+const normalizeMediaUrl = (url?: string) => {
+  if (!url) return ''
+  return url.trim()
 }
 
 const Projects = () => {
@@ -124,19 +131,19 @@ const Projects = () => {
   const projectsAI = [
     {
       title: "صورة AI فنية",
-      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/main-ai/main-ai-img/Image_fx%20(26).jpg"
+      image: "/maine-ai/Whisk_a5bb872349.jpg"
     },
     {
       title: "تصميم AI",
-      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/main-ai/main-ai-img/Whisk_a5bb872349.jpg"
+      image: "/maine-ai/Whisk_storyboardd41ff3eb5733497ab32b9859.jpg"
     },
     {
       title: "صورة خيالية",
-      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/main-ai/main-ai-img/Whisk_storyboard3858f782366941a3b2b74993.jpg"
+      image: "/maine-ai/Image_fx (26).jpg"
     },
     {
       title: "عالم افتراضي",
-      image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/main-ai/main-ai-img/Whisk_storyboardd41ff3eb5733497ab32b9859.jpg"
+      image: "/maine-ai/Whisk_storyboard3858f782366941a3b2b74993.jpg"
     }
   ]
 
@@ -214,125 +221,126 @@ const Projects = () => {
           <div className="w-16 h-0.5 bg-accent-blue/50 mx-auto rounded-full"></div>
         </motion.div>
 
-                <div className={`${title === "فيديوهات 3D" ? 'space-y-6 mb-8' : 'flex gap-2 mb-8 overflow-x-auto pb-4'}`}>
-            {title === "فيديوهات 3D" ? (
-              <>
-                {/* أول 4 فيديوهات في صف أفقي */}
-                <div className="flex gap-2 overflow-x-auto pb-4">
-                  {items.slice(0, 4).map((item, index) => (
-                    <motion.div
-                      key={item.title}
-                      className="group flex-shrink-0"
-                      initial={{ opacity: 0, x: 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                    >
-                      <div className="relative overflow-hidden rounded-xl bg-gray-800">
-                        {(() => {
-                          const mediaUrl = (item.video || item.image) as string
-                          const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
-                          if (looksLikeVideo) {
-                            return (
-                              <ThumbVideo
-                                src={mediaUrl}
-                                className="w-64 h-48 md:w-80 md:h-60"
-                                onClick={() => setSelectedVideo(mediaUrl)}
-                              />
-                            )
-                          }
+        <div className={`${title === "فيديوهات 3D" ? 'space-y-6 mb-8' : 'flex gap-2 mb-8 overflow-x-auto pb-4'}`}>
+          {title === "فيديوهات 3D" ? (
+            <>
+              {/* أول 4 فيديوهات في صف أفقي */}
+              <div className="flex gap-2 overflow-x-auto pb-4">
+                {items.slice(0, 4).map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    className="group flex-shrink-0"
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className="relative overflow-hidden rounded-xl bg-gray-800">
+                      {(() => {
+                        const mediaUrl = (item.video || item.image) as string
+                        const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
+                        if (looksLikeVideo) {
                           return (
-                            <img
-                              src={getLowResImage(mediaUrl)}
-                              alt={item.title}
-                              loading="lazy"
-                              className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                              onClick={() => setSelectedImage(mediaUrl)}
+                            <ThumbVideo
+                              src={mediaUrl}
+                              className="w-64 h-48 md:w-80 md:h-60"
+                              onClick={() => setSelectedVideo(mediaUrl)}
                             />
                           )
-                        })()}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-                
-                {/* الخمسة فيديوهات الأخرى في صف أفقي منفصل */}
-                <div className="flex gap-2 overflow-x-auto pb-4">
-                  {items.slice(4, 9).map((item, index) => (
-                    <motion.div
-                      key={item.title}
-                      className="group flex-shrink-0"
-                      initial={{ opacity: 0, x: 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                    >
-                      <div className="relative overflow-hidden rounded-xl bg-gray-800">
-                        {(() => {
-                          const mediaUrl = (item.video || item.image) as string
-                          const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
-                          if (looksLikeVideo) {
-                            return (
-                              <ThumbVideo
-                                src={mediaUrl}
-                                className="w-48 h-80 md:w-64 md:h-[360px]"
-                                onClick={() => setSelectedVideo(mediaUrl)}
-                              />
-                            )
-                          }
-                          return (
-                            <img
-                              src={getLowResImage(mediaUrl)}
-                              alt={item.title}
-                              loading="lazy"
-                              className="w-48 h-80 md:w-64 md:h-[360px] object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                              onClick={() => setSelectedImage(mediaUrl)}
-                            />
-                          )
-                        })()}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              items.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  className="group flex-shrink-0"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <div className="relative overflow-hidden rounded-xl bg-gray-800">
-                    {(() => {
-                      const mediaUrl = (item.video || item.image) as string
-                      const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
-                      if (looksLikeVideo) {
+                        }
                         return (
-                          <ThumbVideo
-                            src={mediaUrl}
-                            className="w-64 h-48 md:w-80 md:h-60"
-                            onClick={() => setSelectedVideo(mediaUrl)}
+                          <img
+                            src={getLowResImage(mediaUrl)}
+                            alt={item.title}
+                            loading="lazy"
+                            className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                            onClick={() => setSelectedImage(mediaUrl)}
                           />
                         )
-                      }
+                      })()}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* الخمسة فيديوهات الأخرى في صف أفقي منفصل */}
+              <div className="flex gap-2 overflow-x-auto pb-4">
+                {items.slice(4, 9).map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    className="group flex-shrink-0"
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className="relative overflow-hidden rounded-xl bg-gray-800">
+                      {(() => {
+                        const mediaUrl = (item.video || item.image) as string
+                        const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
+                        if (looksLikeVideo) {
+                          return (
+                            <ThumbVideo
+                              src={mediaUrl}
+                              className="w-48 h-80 md:w-64 md:h-[360px]"
+                              onClick={() => setSelectedVideo(mediaUrl)}
+                            />
+                          )
+                        }
+                        return (
+                          <img
+                            src={getLowResImage(mediaUrl)}
+                            alt={item.title}
+                            loading="lazy"
+                            className="w-48 h-80 md:w-64 md:h-[360px] object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                            onClick={() => setSelectedImage(mediaUrl)}
+                          />
+                        )
+                      })()}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          ) : (
+            items.map((item, index) => (
+              <motion.div
+                key={item.title}
+                className="group flex-shrink-0"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="relative overflow-hidden rounded-xl bg-gray-800">
+                  {(() => {
+                    const mediaUrl = (item.video || item.image) as string
+                    const looksLikeVideo = isVideo || (typeof mediaUrl === 'string' && mediaUrl.toLowerCase().endsWith('.mp4'))
+                    if (looksLikeVideo) {
                       return (
-                        <img
-                          src={getLowResImage(mediaUrl)}
-                          alt={item.title}
-                          loading="lazy"
-                          className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                          onClick={() => setSelectedImage(mediaUrl)}
+                        <ThumbVideo
+                          src={mediaUrl}
+                          className="w-64 h-48 md:w-80 md:h-60"
+                          onClick={() => setSelectedVideo(mediaUrl)}
                         />
                       )
-                    })()}
-                  </div>
-                </motion.div>
-              ))
-            )}
-          </div>
+                    }
+                    return (
+                      <img
+                        src={getLowResImage(mediaUrl)}
+                        alt={item.title}
+                        loading="lazy"
+                        className="w-64 h-48 md:w-80 md:h-60 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                        onClick={() => setSelectedImage(mediaUrl)}
+                      />
+                    )
+                  })()}
+                </div>
+
+              </motion.div>
+            ))
+          )}
+        </div>
 
         <motion.div
           className="flex justify-start"
@@ -341,7 +349,7 @@ const Projects = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <button 
+          <button
             onClick={() => {
               const sidebarUrl = `/sidebar?category=${encodeURIComponent(title.trim())}`
               console.log('Opening sidebar with URL:', sidebarUrl)
@@ -350,10 +358,10 @@ const Projects = () => {
             className="flex items-center gap-3 px-6 py-4 text-accent-blue hover:text-white  hover:scale-105 rounded-full transition-all duration-300 group font-semibold text-lg"
           >
             <span className="font-Inter">عرض المزيد</span>
-            <svg 
-              className="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -375,11 +383,11 @@ const Projects = () => {
           exit={{ opacity: 0 }}
         >
           {/* Backdrop with blur */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={() => setSelectedImage(null)}
           />
-          
+
           {/* Image container */}
           <motion.div
             className="relative z-10 max-w-2xl max-h-[80vh]"
@@ -406,11 +414,11 @@ const Projects = () => {
           exit={{ opacity: 0 }}
         >
           {/* Backdrop with blur */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={() => setSelectedVideo(null)}
           />
-          
+
           {/* Video container */}
           <motion.div
             className="relative z-10 max-w-4xl max-h-[80vh]"

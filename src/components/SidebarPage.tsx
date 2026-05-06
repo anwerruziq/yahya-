@@ -5,11 +5,30 @@ import { useSearchParams } from 'react-router-dom'
 // Generate a low-res preview URL for Supabase-hosted images
 const getLowResImage = (url: string, quality: number = 35) => {
   try {
-    const isSupabase = url.includes('/storage/v1/object/public/')
-    if (!isSupabase) return url
-    const transformed = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
+    const trimmed = (url || '').trim()
+    const encoded = encodeURI(trimmed)
+    const isSupabase = encoded.includes('/storage/v1/object/public/')
+    if (!isSupabase) return encoded
+    const transformed = encoded.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/')
     const hasQuery = transformed.includes('?')
     return transformed + (hasQuery ? `&quality=${quality}` : `?quality=${quality}`)
+  } catch {
+    return url
+  }
+}
+
+// Generate a low-res preview URL for Supabase-hosted videos
+const getLowResVideo = (url: string, quality: number = 35) => {
+  try {
+    const trimmed = (url || '').trim()
+    const encoded = encodeURI(trimmed)
+    const isSupabase = encoded.includes('/storage/v1/object/public/')
+    if (!isSupabase) return encoded
+    // For videos, we can use a lower resolution by adding width/height parameters
+    const transformed = encoded.replace('/storage/v1/object/public/', '/storage/v1/render/video/public/')
+    const hasQuery = transformed.includes('?')
+    const baseUrl = transformed + (hasQuery ? '&' : '?')
+    return baseUrl + `width=480&height=270&quality=${quality}`
   } catch {
     return url
   }
@@ -18,12 +37,123 @@ const getLowResImage = (url: string, quality: number = 35) => {
 // Trim and normalize media URLs (handles accidental spaces)
 const normalizeMediaUrl = (url?: string) => {
   if (!url) return ''
-  return url.trim()
+  const trimmed = url.trim()
+  // Convert Windows backslashes to forward slashes
+  let normalized = trimmed.replace(/\\/g, '/')
+  // Remove an accidental leading 'public/' if someone included it
+  normalized = normalized.replace(/^public\//i, '')
+  // If it's not an absolute URL and doesn't start with '/', make it root-relative
+  if (!/^https?:\/\//i.test(normalized) && !normalized.startsWith('/')) {
+    normalized = '/' + normalized
+  }
+  return normalized
+}
+
+// Loading spinner component
+const LoadingSpinner = () => (
+  <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+    <div className="relative w-16 h-16">
+      {/* Outer ring */}
+      <div className="absolute inset-0 border-4 border-gray-600 rounded-full"></div>
+      {/* Spinning ring */}
+      <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+      {/* Inner dot */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+      </div>
+    </div>
+  </div>
+)
+
+// Optimized video component with lazy loading
+const ThumbVideo = ({ src, onClick, className, onMouseEnter, onMouseLeave }: {
+  src: string
+  onClick: () => void
+  className: string
+  onMouseEnter: (e: React.MouseEvent<HTMLVideoElement>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLVideoElement>) => void
+}) => {
+  const videoRef = React.useRef<HTMLVideoElement>(null)
+  const [isVisible, setIsVisible] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current)
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <div className="relative">
+      {isLoading && <LoadingSpinner />}
+      <video
+        ref={videoRef}
+        className={className}
+        muted
+        loop
+        playsInline
+        preload={isVisible ? "metadata" : "none"}
+        autoPlay={false}
+        onClick={onClick}
+        onLoadedMetadata={(e) => {
+          if (isVisible) {
+            const video = e.currentTarget as HTMLVideoElement
+            try { 
+              video.currentTime = 0.05 
+              console.log('Video loaded, seeking to 0.05s:', src)
+            } catch (error) {
+              console.error('Error seeking video:', error)
+            }
+          }
+        }}
+        onCanPlay={(e) => {
+          if (isVisible) {
+            const video = e.currentTarget as HTMLVideoElement
+            try { 
+              video.currentTime = 0.05 
+              console.log('Video can play, seeking to 0.05s:', src)
+              setIsLoading(false)
+            } catch (error) {
+              console.error('Error seeking video on canplay:', error)
+            }
+          }
+        }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onError={(e) => {
+          console.error('Video error:', e, 'for video:', src)
+          setIsLoading(false)
+        }}
+      >
+        {isVisible && <source src={getLowResVideo(normalizeMediaUrl(src), 35)} type="video/mp4" />}
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
+          <span>فيديو غير متاح</span>
+        </div>
+      </video>
+    </div>
+  )
 }
 
 const SidebarPage = () => {
   const [searchParams] = useSearchParams()
   const category = searchParams.get('category') || ''
+  const [visibleVideos, setVisibleVideos] = React.useState<Set<number>>(new Set())
 
   const allProjects = {
     "صور 3D": [
@@ -226,255 +356,236 @@ const SidebarPage = () => {
     "صور 2D": [
       {
         title: "تصميم 2D - مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/u7.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/IMG-20230328-WA0001.jpg"
-      }, {
-        title: "تصميم 2D - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(9).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(8).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(7).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(6).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(5).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(4).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 9",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(3).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 10",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(2).jpg"
-      }, {
-        title: "تصميم 2D - مشروع 11",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(17).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 12",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(16).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 13",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(15).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 14",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(14).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 15",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(13).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 16",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(12).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 17",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(11).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 18",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(10).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 19",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/image2d%20(1).jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 20",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/hqpn.jpg"
-      },
-      {
-        title: "تصميم 2D - 2مشروع 1",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/fdt.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 22",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/ett.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 23",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/ddg.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 24",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci9.jpg"
+        image: "/2d/m (1).jpg"
+      },    {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (2).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (3).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (4).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (5).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (6).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (7).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (8).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (9).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (10).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (11).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (12).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (13).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (14).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (15).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (16).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (17).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (18).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (19).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (20).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (21).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (22).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (23).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (24).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (25).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (26).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (27).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (28).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (29).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (30).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (31).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (32).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (33).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (34).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (35).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (36).jpg"
+      },  {
+        title: "تصميم 2D - مشروع 1",
+        image: "/2d/m (37).jpg"
       },
       
-      {
-        title: "تصميم 2D - مشروع 25",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci8.jpg"
-      },
-       {
-        title: "تصميم 2D - مشروع 26",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci6.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 26",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci5.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 27",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci4.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 28",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danci1.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 29",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/danc10.jpg"
-      },
-      
-      {
-        title: "تصميم 2D - مشروع 30",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/cocc.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 31",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/342.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع32",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/2ngm%20copy.jpg"
-      },
-      {
-        title: "تصميم 2D - مشروع 33",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/2d-img/img%202/2.jpg"
-      },
     ],
          "صور AI": [
        {
          title: "صورة AI - مشروع 1",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_storyboard4ee7e5162ea54eb5a1cc689d.png"
+            image: "/ai/daf938cc50cbce37001f52a238882fbb.jpg"
        },
        {
          title: "صورة AI - مشروع 2",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_exmdkzmwm3.jpg"
+            image: "/ai/FB_IMG_1751754764977.jpg"
        },
        {
          title: "صورة AI - مشروع 3",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_bedb4f5e50.jpg"
+            image: "/ai/Image_fx (29).jpg"
        },
        {
          title: "صورة AI - مشروع 4",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_b2c13beff7.jpg"
+            image: "/ai/Image_fx (33).jpg"
        },
        {
          title: "صورة AI - مشروع 5",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_98a3dde07e.jpg"
+            image: "/ai/Image_fx (37).jpg"
        },
        {
          title: "صورة AI - مشروع 6",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e64a435d2.jpg"
+            image: "/ai/Image_fx (42).jpg"
        },
        {
          title: "صورة AI - مشروع 7",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4e3fdc242d.jpg"
+            image: "/ai/image_fx_ - 2024-08-18T025740.387.jpg"
        },
        {
          title: "صورة AI - مشروع 8",
-         image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_4178aef133.jpg"
+            image: "/ai/image_fx_ - 2024-08-18T035641.750.jpg"
        },
        {
         title: "صورة AI - مشروع 2",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_3a6fcab51c.jpg"
+            image: "/ai/image_fx_ - 2024-08-18T040021.549.jpg"
       },
       {
         title: "صورة AI - مشروع 3",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_34b2a61c61.jpg"
+            image: "/ai/image_fx_ (2).jpg"
       },
       {
         title: "صورة AI - مشروع 4",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_253cf6753e.jpg"
+            image: "/ai/image_fx_ (5).jpg"
       },
-      {
-        title: "صورة AI - مشروع 5",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_113440dc8f.jpg"
-      },
+   
       {
         title: "صورة AI - مشروع 6",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_09ed53c42f.jpg"
+            image: "/ai/image_fx_ (13).jpg"
       },
       {
         title: "صورة AI - مشروع 7",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_04cf5eb107.jpg"
+            image: "/ai/image_fx_ (14).jpg"
       },
       {
         title: "صورة AI - مشروع 8",
-        image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img/Whisk_03f3ed2ba9.jpg"
+            image: "/ai/image_fx_ (17).jpg"
      }
      ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).jpg"
+           image: "/ai/image_fx_ (18).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(1).webp"
+           image: "/ai/image_fx_ (23).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(10).jpg"
+           image: "/ai/image_fx_ (31).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(12).jpg"
+           image: "/ai/image_fx_ (46).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(13).jpg"
+           image: "/ai/image_fx_ (47).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(14).jpg"
+           image: "/ai/image_fx_ (65).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(16).jpg"
+           image: "/ai/image_fx_ (69).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(19).jpg"
+           image: "/ai/image_fx_ (96).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(2)%20(1).jpg"
+           image: "/ai/image_fx_ (98).jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(23).jpg"
+           image: "/ai/IMG_20240816_233233_450.webp"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(24).jpg"
+           image: "/ai/IMG_20240818_161045_611.jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(25).jpg"
+           image: "/ai/Whisk_1a60bf7e42.jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(3).jpg"
+           image: "/ai/Whisk_4e3fdc242d.jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(8).jpg"
+           image: "/ai/Whisk_4178aef133.jpg"
      } ,
      {
        title: "صورة AI - مشروع 1",
-       image: "https://vzezgikywxmxmntbxczg.supabase.co/storage/v1/object/public/ai-img/img2/img%20(9).jpg"
+           image: "/ai/Whisk_b2c13beff7.jpg"
       }
        
      ],
@@ -559,32 +670,10 @@ const SidebarPage = () => {
             >
               <div className="relative overflow-hidden rounded-xl bg-gray-800">
                 {project.video ? (
-                  <video
+                  <ThumbVideo
+                    src={project.video}
                     className="w-full h-60 md:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    autoPlay={false}
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23374151'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial' font-size='16'%3Eتحميل الفيديو...%3C/text%3E%3C/svg%3E"
-                    onLoadedMetadata={(e) => {
-                      const video = e.currentTarget as HTMLVideoElement
-                      try { 
-                        video.currentTime = 0.05 
-                        console.log('Video loaded, seeking to 0.05s:', project.video)
-                      } catch (error) {
-                        console.error('Error seeking video:', error)
-                      }
-                    }}
-                    onCanPlay={(e) => {
-                      const video = e.currentTarget as HTMLVideoElement
-                      try { 
-                        video.currentTime = 0.05 
-                        console.log('Video can play, seeking to 0.05s:', project.video)
-                      } catch (error) {
-                        console.error('Error seeking video on canplay:', error)
-                      }
-                    }}
+                    onClick={() => setSelectedMedia(normalizeMediaUrl(project.video || project.image))}
                     onMouseEnter={(e) => {
                       const video = e.target as HTMLVideoElement
                       video.currentTime = 0
@@ -595,15 +684,7 @@ const SidebarPage = () => {
                       video.pause()
                       video.currentTime = 0
                     }}
-                    onError={(e) => {
-                      console.error('Video error:', e, 'for video:', project.video)
-                    }}
-                  >
-                    <source src={normalizeMediaUrl(project.video)} type="video/mp4" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
-                      <span>فيديو غير متاح</span>
-                    </div>
-                  </video>
+                  />
                 ) : (
                   <img
                     src={getLowResImage(normalizeMediaUrl(project.image))}
@@ -644,6 +725,7 @@ const SidebarPage = () => {
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
               >
                 <source src={normalizeMediaUrl(selectedMedia)} type="video/mp4" />
+                <p className="text-white text-center p-4">متصفحك لا يدعم تشغيل الفيديو</p>
               </video>
             ) : (
               <img
